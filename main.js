@@ -1,6 +1,11 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
+// Add this at the top of the file, before the app is created
+require('electron-reload')(__dirname, {
+    electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+  });
+  
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1280,
