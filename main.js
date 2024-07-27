@@ -4,26 +4,34 @@ const path = require('path');
 // Add this at the top of the file, before the app is created
 require('electron-reload')(__dirname, {
     electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+    hardResetMethod: 'exit',
+    // Watch for changes in the 'dist' directory
+    watchRenderer: true,
   });
-  
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: false, // Disable Node.js integration
-      contextIsolation: true, // Enable context isolation
+      nodeIntegration: false,
+      contextIsolation: true,
     },
   });
 
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.loadURL('http://localhost:9000');
+    mainWindow.webContents.openDevTools();
 
-  // Hide the menu bar
+    // Watch for changes in the 'dist' directory
+    watch(path.join(__dirname, 'dist')).on('change', () => {
+      mainWindow.reload();
+    });
+  } else {
+    mainWindow.loadFile(path.join(__dirname, 'dist', 'index.html'));
+  }
+
   //mainWindow.setMenuBarVisibility(false);
-
-  // Open the DevTools (optional)
-  mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(createWindow);
