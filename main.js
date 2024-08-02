@@ -18,7 +18,7 @@ function createWindow() {
       contextIsolation: true,
     },
   });
-
+  mainWindow.setMenuBarVisibility(false);
   if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL('http://localhost:9000');
     mainWindow.webContents.openDevTools();
@@ -31,7 +31,7 @@ function createWindow() {
     mainWindow.loadFile(path.join(__dirname, 'dist', 'index.html'));
   }
 
-  //mainWindow.setMenuBarVisibility(false);
+  
 }
 
 app.whenReady().then(createWindow);
