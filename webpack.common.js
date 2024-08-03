@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
+  entry: './src/index.js',
   entry: './client/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -21,6 +22,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
         use: [
           'style-loader', 
           'css-loader', 
