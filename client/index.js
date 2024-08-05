@@ -13,9 +13,10 @@ const render = (Component) => {
 render(App);
 
 // Hot Module Replacement setup
-if (module.hot) {
+if (process.env.NODE_ENV === 'development' && module.hot) {
   module.hot.accept('./App', () => {
     const NextApp = require('./App').default;
     render(NextApp);
   });
 }
+

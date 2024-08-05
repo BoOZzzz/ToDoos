@@ -7,11 +7,19 @@ module.exports = merge(common, {
   devServer: {
     static: {
         directory: path.join(__dirname, 'dist'),
+        
     },
     compress: true,
     port: 9000,
     hot: true,
     historyApiFallback: true,
-    watchFiles: ['src/**/*', 'index.html'], // Watch files for changes
+    watchFiles: ['client/**/*', 'index.html'], // Watch files for changes
+    
+  },
+  watchOptions: {
+    ignored: [
+      path.resolve(__dirname, 'client/utils/tokens.json'),
+      '**/node_modules',
+    ],
   },
 });

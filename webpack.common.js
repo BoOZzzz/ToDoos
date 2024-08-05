@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './src/index.js',
   entry: './client/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -51,6 +50,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
+      filename: 'index.html',
       inject: 'body',
     }),
     new webpack.ProvidePlugin({
