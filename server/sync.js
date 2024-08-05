@@ -1,7 +1,7 @@
 // sync.js
 
 const { sequelize } = require('./index');
-const User = require('./user'); // Import your User model
+const User = require('./models/user'); // Import your User model
 
 // Synchronize all models with the database
 (async () => {
