@@ -19,6 +19,8 @@ const Register = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-3xl font-extrabold text-center text-blue-600 mb-6">
@@ -78,7 +80,9 @@ const Register = () => {
         </form>
       </div>
     </div>
+    </>
   );
+  
 };
 
 export default Register;
