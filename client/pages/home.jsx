@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import Navbar from '../components/navbar';
 
 const Home = () => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -38,7 +38,7 @@ const Home = () => {
 
   return (
     <>
-    
+      <Navbar />
       <div className="bg-gray-50 min-h-screen flex flex-col items-center justify-start">
         <h1
           className="text-8xl font-extrabold text-blue-600 drop-shadow-md text-center pt-10 select-none"

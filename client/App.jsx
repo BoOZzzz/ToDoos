@@ -8,7 +8,7 @@ import Dashboard from './pages/Dashboard';
 
 const App = () => {
   useEffect(() => {
-    console.log('App component mounted');
+    //console.log('App component mounted');
   }, []);
   return (
     <Router>
