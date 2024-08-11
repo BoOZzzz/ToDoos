@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=production electron .",
@@ -38,6 +39,8 @@
     "axios": "^1.7.3",
     "body-parser": "^1.20.2",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "electron-store": "^10.0.0",
     "express": "^4.19.2",
     "global": "^4.4.0",
     "pg": "^8.12.0",

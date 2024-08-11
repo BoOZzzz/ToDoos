@@ -21,4 +21,9 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.removeAllListeners(channel);
     }
   },
+
+  saveToken: (token) => ipcRenderer.invoke('save-token', token),
+  getToken: () => ipcRenderer.invoke('get-token'),
+  getValidToken: () => ipcRenderer.invoke('get-valid-token'),
+  
 });

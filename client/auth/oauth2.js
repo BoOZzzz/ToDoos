@@ -1,10 +1,11 @@
 const { BrowserWindow } = require('electron');
 const axios = require('axios');
 const querystring = require('querystring');
+require('dotenv').config();
 
 // Configuration
-const CLIENT_ID = '450825445336-6qbk3s52h65msf9lcjjkvvbgm0udbl41.apps.googleusercontent.com';
-const CLIENT_SECRET = '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';
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = 'http://localhost:3000/callback';
 const AUTHORIZATION_URL = 'https://accounts.google.com/o/oauth2/auth';
 const TOKEN_URL = 'https://oauth2.googleapis.com/token';
