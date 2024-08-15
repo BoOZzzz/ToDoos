@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
-  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=production electron .",
@@ -37,7 +36,9 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.3",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
     "electron-store": "^10.0.0",
