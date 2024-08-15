@@ -5,20 +5,25 @@ const bodyParser = require('body-parser');
 const { sequelize } = require('./index.js'); // Import Sequelize instance
 const User = require('./models/user.js'); // Import User model
 const Event = require('./models/event.js'); // Import Event model
-
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const bcrypt = require('bcrypt');
 
 // Middleware
 app.use(bodyParser.json()); // Parse JSON bodies
 
 // Routes
+app.use(cors({
+  origin: 'http://localhost:9000' // Allow only your React app's origin
+}));
 
 // Create a new user
 app.post('/users', async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    const user = await User.create({ username, email, password });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({ username, email, password:hashedPassword });
     res.status(201).json(user);
   } catch (error) {
     console.error('Error creating user:', error);
@@ -38,7 +43,7 @@ app.get('/users', async (req, res) => {
 });
 
 // Get a single user by ID
-app.get('/users/:id', async (req, res) => {
+app.get('/users/id/:id', async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
     if (!user) {
@@ -50,6 +55,23 @@ app.get('/users/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch user' });
   }
 });
+
+app.get('/users/email/:email', async (req, res) => {
+  try{
+    console.log("requested email:", req.params.email);
+    const user = await User.findOne({ where: { email: req.params.email } });
+    //console.log("user: ", user);
+    if (!user) {
+      return res.status(204).send(); // 204 No Content with an empty response
+    }
+    res.json(user);
+
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ error: "Failed to fetch user"});
+  }
+})
+
 
 // Update a user
 app.put('/users/:id', async (req, res) => {
