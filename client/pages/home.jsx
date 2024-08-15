@@ -1,24 +1,44 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Navbar from '../components/navbar';
+import { makeApiRequest, getUserInfoByEmail } from '../utils/api';
 
 const Home = () => {
   const navigate = useNavigate(); // Initialize useNavigate
-
+  const [user, setUser] = useState();
   useEffect(() => {
     // Listen for the login-success event
     console.log("setting up ipc listeners in home.jsx");
-    window.electron.ipcRenderer.on('login-success', (tokens) => {
+    window.electron.ipcRenderer.on('login-success', async (tokens) => {
       console.log('Logged in successfully:', tokens);
 
       // Store tokens if needed, e.g., in local storage or state management
-      localStorage.setItem('tokens', JSON.stringify(tokens));
 
       // Redirect to the desired page, e.g., dashboard
-      navigate('/dashboard');
+      
+      try {
+        // Make the API request to get the user's email
+        const userInfo = await makeApiRequest(tokens.access_token);
+        const userEmail = userInfo.email;
+
+        // Fetch the user info by email
+        const fetchedUser = await getUserInfoByEmail(userEmail);
+        setUser(fetchedUser);
+
+        // Redirect based on whether the user exists or not
+        if (fetchedUser) {
+          navigate('/dashboard');
+        } else {
+          navigate('/register', { state: { userEmail } });
+        }
+      } catch (error) {
+        console.error('Error during login or fetching user info:', error);
+      }
     });
+
+    
 
 
     return () => {
