@@ -5,13 +5,13 @@ contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {
     send: (channel, data) => {
       // Define allowed channels
-      const validChannels = ['oauth2-login', 'test-ipc'];
+      const validChannels = ['oauth2-login', 'logout', 'test-ipc'];
       if (validChannels.includes(channel)) {
         ipcRenderer.send(channel, data);
       }
     },
     on: (channel, func) => {
-      const validChannels = ['login-success', 'test-ipc-response'];
+      const validChannels = ['login-success', 'logout-success', 'test-ipc-response'];
       if (validChannels.includes(channel)) {
         // Strip event as it includes `sender`
         ipcRenderer.on(channel, (event, ...args) => func(...args));

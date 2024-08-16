@@ -11,7 +11,7 @@ const Register = () => {
   });
 
   const location = useLocation();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     // Extract the email from the query parameters

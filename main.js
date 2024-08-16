@@ -138,6 +138,20 @@ async function getValidToken() {
   return getToken().accessToken;
 }
 
+function handleLogout() {
+  // Clear tokens from the store
+  store.delete('authToken');
+  store.delete('refreshToken');
+  store.delete('tokenExpiry');
+
+  // Optional: Notify the renderer process about the logout
+  if (mainWindow) {
+    mainWindow.webContents.send('logout-success');
+  }
+
+}
+
+
 // main.js or index.js (Electron Main Process)
 ipcMain.handle('save-token', (event, token) => {
   saveToken(token);
@@ -149,4 +163,9 @@ ipcMain.handle('get-token', () => {
 
 ipcMain.handle('get-valid-token', async () => {
   return await getValidToken();
+});
+
+
+ipcMain.on('logout', () => {
+  handleLogout();
 });

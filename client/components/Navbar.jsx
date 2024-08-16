@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   const toggleDropdown = () => {
@@ -11,6 +12,21 @@ const Navbar = () => {
 
   const navigateToHome = () => {
     navigate('/');
+  };
+
+  useEffect(() => {
+    // Check if the user is logged in by verifying the presence of a valid token
+    const checkLoginStatus = async () => {
+      const token = await window.electron.getValidToken();
+      setIsLoggedIn(!!token); // Set isLoggedIn to true if a valid token exists
+    };
+
+    checkLoginStatus();
+  }, []);
+
+  const handleLogout = () => {
+    window.electron.ipcRenderer.send('logout');
+    navigate('/'); // Redirect to the login page after logout
   };
 
   return (
@@ -27,6 +43,15 @@ const Navbar = () => {
             >
               Home
             </button>
+            {/* Conditionally render the logout button if logged in */}
+            {isLoggedIn && (
+              <button
+                onClick={handleLogout}
+                className="text-white hover:bg-blue-700 p-2 rounded-md"
+              >
+                Logout
+              </button>
+            )}
           </div>
         </div>
         

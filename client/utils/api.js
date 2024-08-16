@@ -20,7 +20,7 @@ async function getUserInfoByEmail(email) {
       return null; // or return {} if you prefer an empty object
     }
 
-    console.log('API response:', response.data);
+    //console.log('API response:', response.data);
     return response.data;
   } catch (error) {
     if (error.response) {
@@ -39,7 +39,7 @@ async function makeApiRequest(token) {
       },
     });
 
-    console.log('API response:', response.data);
+    //console.log('API response:', response.data);
     return response.data;
   } catch (error) {
     console.error('API request failed:', error);
