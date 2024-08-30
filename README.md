@@ -12,4 +12,5 @@ last commit
 5. updated registration page to prefill for oauth2
 
 
-3
+#important
+Perhaps, need to re-design entire app structure. Web app based direction?
